@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUp Digital Wallet - DANA/OVO/GOPAY</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #6e8efb;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .wallet-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .wallet-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-option:hover {
+            border-color: #6e8efb;
+        }
+        
+        .wallet-option.selected {
+            border-color: #6e8efb;
+            background-color: #f0f4ff;
+        }
+        
+        .wallet-option img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .payment-methods {
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: #6e8efb;
+        }
+        
+        .payment-method.selected {
+            border-color: #6e8efb;
+            background-color: #f0f4ff;
+        }
+        
+        .payment-method img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .qris-container {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .qris-image {
+            max-width: 200px;
+            margin: 0 auto 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .wallet-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TOPUP DIGITAL WALLET</h1>
+            <p class="tagline">Isi ulang DANA, OVO, GOPAY dengan mudah dan cepat</p>
+        </header>
+        
+        <div class="main-content">
+            <section class="form-section">
+                <h2>Pilih E-Wallet</h2>
+                
+                <div class="wallet-options">
+                    <div class="wallet-option" data-wallet="dana">
+                        <img src="https://via.placeholder.com/50?text=DANA" alt="DANA">
+                        <p>DANA</p>
+                    </div>
+                    <div class="wallet-option" data-wallet="ovo">
+                        <img src="https://via.placeholder.com/50?text=OVO" alt="OVO">
+                        <p>OVO</p>
+                    </div>
+                    <div class="wallet-option" data-wallet="gopay">
+                        <img src="https://via.placeholder.com/50?text=GOPAY" alt="GOPAY">
+                        <p>GOPAY</p>
+                    </div>
+                </div>
+                
+                <form id="topupForm">
+                    <div class="form-group">
+                        <label for="phone">Nomor Handphone</label>
+                        <input type="tel" id="phone" placeholder="Contoh: 081234567890" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Jumlah Topup</label>
+                        <select id="amount" required>
+                            <option value="" disabled selected>Pilih nominal</option>
+                            <option value="10000">Rp 10.000</option>
+                            <option value="20000">Rp 20.000</option>
+                            <option value="50000">Rp 50.000</option>
+                            <option value="100000">Rp 100.000</option>
+                            <option value="200000">Rp 200.000</option>
+                            <option value="500000">Rp 500.000</option>
+                            <option value="custom">Custom (Masukkan sendiri)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="customAmountGroup" style="display: none;">
+                        <label for="customAmount">Masukkan Jumlah Custom</label>
+                        <input type="number" id="customAmount" placeholder="Masukkan jumlah topup">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email (Opsional)</label>
+                        <input type="email" id="email" placeholder="Untuk menerima bukti transaksi">
+                    </div>
+                    
+                    <button type="submit" class="btn">Lanjutkan Pembayaran</button>
+                </form>
+            </section>
+            
+            <section class="payment-section" id="paymentSection" style="display: none;">
+                <h2>Metode Pembayaran</h2>
+                <p id="paymentInfo">Topup <span id="walletName"></span> ke nomor <span id="phoneNumber"></span> sebesar Rp <span id="topupAmount"></span></p>
+                
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="dana">
+                        <img src="https://via.placeholder.com/40?text=DANA" alt="DANA">
+                        <span>Bayar dengan DANA</span>
+                    </div>
+                    <div class="payment-method" data-method="gopay">
+                        <img src="https://via.placeholder.com/40?text=GOPAY" alt="GOPAY">
+                        <span>Bayar dengan GOPAY</span>
+                    </div>
+                    <div class="payment-method" data-method="ovo">
+                        <img src="https://via.placeholder.com/40?text=OVO" alt="OVO">
+                        <span>Bayar dengan OVO</span>
+                    </div>
+                    <div class="payment-method" data-method="qris">
+                        <img src="https://via.placeholder.com/40?text=QRIS" alt="QRIS">
+                        <span>QRIS</span>
+                    </div>
+                    <div class="payment-method" data-method="bca">
+                        <img src="https://via.placeholder.com/40?text=BCA" alt="BCA">
+                        <span>Transfer Bank BCA</span>
+                    </div>
+                    <div class="payment-method" data-method="bni">
+                        <img src="https://via.placeholder.com/40?text=BNI" alt="BNI">
+                        <span>Transfer Bank BNI</span>
+                    </div>
+                </div>
+                
+                <div class="qris-container" id="qrisContainer">
+                    <img src="https://via.placeholder.com/200?text=QR+CODE" alt="QR Code" class="qris-image">
+                    <p>Scan QR code di atas untuk melakukan pembayaran</p>
+                </div>
+                
+                <button class="btn" id="confirmPayment" style="margin-top: 20px;">Konfirmasi Pembayaran</button>
+            </section>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 TopUp Digital Wallet. Semua hak dilindungi.</p>
+            <p>Customer Service: cs@topupdigital.com | 0812-3456-7890</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pilih e-wallet
+            const walletOptions = document.querySelectorAll('.wallet-option');
+            let selectedWallet = null;
+            
+            walletOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    walletOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedWallet = this.getAttribute('data-wallet');
+                });
+            });
+            
+            // Toggle custom amount
+            const amountSelect = document.getElementById('amount');
+            const customAmountGroup = document.getElementById('customAmountGroup');
+            
+            amountSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customAmountGroup.style.display = 'block';
+                } else {
+                    customAmountGroup.style.display = 'none';
+                }
+            });
+            
+            // Form submission
+            const topupForm = document.getElementById('topupForm');
+            const paymentSection = document.getElementById('paymentSection');
+            const walletName = document.getElementById('walletName');
+            const phoneNumber = document.getElementById('phoneNumber');
+            const topupAmount = document.getElementById('topupAmount');
+            
+            topupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!selectedWallet) {
+                    alert('Silakan pilih e-wallet terlebih dahulu');
+                    return;
+                }
+                
+                const phone = document.getElementById('phone').value;
+                const amount = amountSelect.value === 'custom' 
+                    ? document.getElementById('customAmount').value 
+                    : amountSelect.value;
+                
+                if (!phone || !amount) {
+                    alert('Silakan isi nomor handphone dan jumlah topup');
+                    return;
+                }
+                
+                // Update payment info
+                walletName.textContent = selectedWallet.toUpperCase();
+                phoneNumber.textContent = phone;
+                topupAmount.textContent = parseInt(amount).toLocaleString('id-ID');
+                
+                // Show payment section
+                paymentSection.style.display = 'block';
+                
+                // Scroll to payment section
+                paymentSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Pilih metode pembayaran
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const qrisContainer = document.getElementById('qrisContainer');
+            const confirmPaymentBtn = document.getElementById('confirmPayment');
+            let selectedPaymentMethod = null;
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                    
+                    // Tampilkan QRIS jika dipilih
+                    if (selectedPaymentMethod === 'qris') {
+                        qrisContainer.style.display = 'block';
+                    } else {
+                        qrisContainer.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Konfirmasi pembayaran
+            confirmPaymentBtn.addEventListener('click', function() {
+                if (!selectedPaymentMethod) {
+                    alert('Silakan pilih metode pembayaran terlebih dahulu');
+                    return;
+                }
+                
+                // Simulasi proses pembayaran
+                alert(`Pembayaran dengan ${selectedPaymentMethod.toUpperCase()} berhasil diproses. Silakan selesaikan pembayaran Anda.`);
+                
+                // Reset form (dalam aplikasi nyata mungkin redirect ke halaman terima kasih)
+                topupForm.reset();
+                paymentSection.style.display = 'none';
+                walletOptions.forEach(opt => opt.classList.remove('selected'));
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                qrisContainer.style.display = 'none';
+                selectedWallet = null;
+                selectedPaymentMethod = null;
+            });
+        });
+    </script>
+</body>
+</html>
